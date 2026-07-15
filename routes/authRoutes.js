@@ -1,20 +1,14 @@
 import { Router } from 'express'
 import rateLimit from 'express-rate-limit'
 import { login, signup } from '../controllers/authController.js'
+import { validate } from '../middleware/validate.js'
+import { authLimiter } from '../middleware/rateLimiters.js'
+import { loginSchema, signupSchema } from '../validators/schemas.js'
 
 const router = Router()
 
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: {
-    success: false,
-    message: 'Too many auth attempts. Try again later.',
-  },
-})
-
 router.use(authLimiter)
-router.post('/signup', signup)
-router.post('/login', login)
+router.post('/signup', validate(signupSchema), signup)
+router.post('/login', validate(loginSchema), login)
 
 export default router

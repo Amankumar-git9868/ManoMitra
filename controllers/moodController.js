@@ -1,6 +1,9 @@
-import crypto from 'node:crypto'
 import { MoodEntry } from '../models/MoodEntry.js'
-import { User } from '../models/User.js'
+import {
+  createGuestSessionToken,
+  getSharedGuestUser,
+  verifyGuestSessionToken,
+} from '../services/guestSession.js'
 
 const moodTypeToScore = {
   happy: 3,
@@ -94,26 +97,17 @@ const resolveMoodPayload = ({ moodType, moodScore }) => {
   throw error
 }
 
-const getOrCreatePublicUser = async (sessionId) => {
-  if (!sessionId) {
-    const error = new Error('sessionId is required for public mood logging.')
-    error.statusCode = 400
-    throw error
-  }
-
-  const email = `guest.${sessionId.toLowerCase()}@mano-mitra.local`
-  let user = await User.findOne({ email })
-
-  if (!user) {
-    const randomPassword = crypto.randomBytes(24).toString('hex')
-    user = await User.create({
-      name: `Guest ${sessionId.slice(0, 6)}`,
-      email,
-      password: randomPassword,
+export const issueGuestSession = async (_req, res, next) => {
+  try {
+    const session = createGuestSessionToken()
+    res.status(201).json({
+      success: true,
+      message: 'Guest session created.',
+      data: session,
     })
+  } catch (error) {
+    next(error)
   }
-
-  return user
 }
 
 export const createMoodEntry = async (req, res, next) => {
@@ -139,12 +133,14 @@ export const createMoodEntry = async (req, res, next) => {
 
 export const createPublicMoodEntry = async (req, res, next) => {
   try {
-    const { moodType, moodScore, note, sessionId } = req.body
+    const { moodType, moodScore, note, sessionToken } = req.body
+    const sessionId = verifyGuestSessionToken(sessionToken)
     const normalizedMood = resolveMoodPayload({ moodType, moodScore })
-    const user = await getOrCreatePublicUser(sessionId)
+    const user = await getSharedGuestUser()
 
     const moodEntry = await MoodEntry.create({
       user: user._id,
+      sessionId,
       ...normalizedMood,
       note: note || '',
     })
@@ -187,8 +183,8 @@ export const getMoodHistory = async (req, res, next) => {
 
 export const getPublicMoodHistory = async (req, res, next) => {
   try {
-    const { sessionId } = req.query
-    const user = await getOrCreatePublicUser(sessionId)
+    const sessionId = verifyGuestSessionToken(req.query.sessionToken)
+    const user = await getSharedGuestUser()
 
     const from = new Date()
     from.setDate(from.getDate() - 6)
@@ -196,6 +192,7 @@ export const getPublicMoodHistory = async (req, res, next) => {
 
     const entries = await MoodEntry.find({
       user: user._id,
+      sessionId,
       createdAt: { $gte: from },
     }).sort({ createdAt: 1 })
 

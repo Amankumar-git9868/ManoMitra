@@ -10,12 +10,6 @@ export const signup = async (req, res, next) => {
   try {
     const { name, email, password } = req.body
 
-    if (!name || !email || !password) {
-      const error = new Error('name, email, and password are required.')
-      error.statusCode = 400
-      throw error
-    }
-
     const existingUser = await User.findOne({ email: email.toLowerCase() })
     if (existingUser) {
       const error = new Error('Email already registered.')
@@ -47,12 +41,6 @@ export const signup = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body
-
-    if (!email || !password) {
-      const error = new Error('email and password are required.')
-      error.statusCode = 400
-      throw error
-    }
 
     const user = await User.findOne({ email: email.toLowerCase() }).select('+password')
     if (!user) {

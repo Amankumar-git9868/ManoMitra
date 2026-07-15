@@ -27,14 +27,16 @@ const getAnonymousAdminStats = async () => {
     totalChats,
     totalMoodEntries,
     negativeSentimentMessages,
+    severeDistressEvents,
     moodDistributionRows,
     chatsByDayRows,
     moodsByDayRows,
   ] = await Promise.all([
-    User.countDocuments(),
+    User.countDocuments({ email: { $not: /@mano-mitra\.local$/ } }),
     ChatMessage.countDocuments(),
     MoodEntry.countDocuments(),
     ChatMessage.countDocuments({ sentiment: 'negative' }),
+    ChatMessage.countDocuments({ severeDistress: true }),
     MoodEntry.aggregate([
       { $group: { _id: '$moodType', count: { $sum: 1 } } },
       { $project: { _id: 0, moodType: '$_id', count: 1 } },
@@ -72,6 +74,7 @@ const getAnonymousAdminStats = async () => {
       totalChats,
       totalMoodEntries,
       negativeSentimentMessages,
+      severeDistressEvents,
     },
     moodDistribution,
     usageTrends,
@@ -90,7 +93,10 @@ export const getAdminStats = async (_req, res, next) => {
 export const getAdminStatsPublic = async (_req, res, next) => {
   try {
     const stats = await getAnonymousAdminStats()
-    res.status(200).json({ success: true, data: stats })
+    // For public, we might just want to expose the totals.
+    // But the prompt says: "expose relevant numbers from this same data to power the landing page's live stat counters".
+    // We'll return the full thing for simplicity, or just totals to be safe.
+    res.status(200).json({ success: true, data: { totals: stats.totals } })
   } catch (error) {
     next(error)
   }

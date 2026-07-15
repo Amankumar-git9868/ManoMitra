@@ -17,8 +17,12 @@ export default function Signup() {
     setError('')
     setLoading(true)
     try {
-      await signup({ name, email, password })
-      navigate('/app', { replace: true })
+      const data = await signup({ name, email, password })
+      if (data?.user?.role === 'admin') {
+        navigate('/admin', { replace: true })
+      } else {
+        navigate('/app', { replace: true })
+      }
     } catch (err) {
       setError(err.message || 'Signup failed.')
     } finally {

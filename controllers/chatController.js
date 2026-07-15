@@ -1,20 +1,9 @@
 import { ChatMessage } from '../models/ChatMessage.js'
 import { generateSupportReply } from '../services/chatbotService.js'
 
-const validateMessage = (message) => {
-  if (!message || typeof message !== 'string' || !message.trim()) {
-    const error = new Error('message is required.')
-    error.statusCode = 400
-    throw error
-  }
-}
-
 export const createChatMessage = async (req, res, next) => {
   try {
     const { message } = req.body
-
-    validateMessage(message)
-
     const chatOutput = await generateSupportReply(message)
 
     const chat = await ChatMessage.create({
@@ -31,6 +20,7 @@ export const createChatMessage = async (req, res, next) => {
       message: 'Chat message processed.',
       data: {
         ...chat.toObject(),
+        aiResponse: chatOutput.response,
         sentiment: chatOutput.sentiment,
       },
     })
@@ -42,8 +32,6 @@ export const createChatMessage = async (req, res, next) => {
 export const createPublicChatMessage = async (req, res, next) => {
   try {
     const { message } = req.body
-    validateMessage(message)
-
     const chatOutput = await generateSupportReply(message)
 
     res.status(200).json({
@@ -56,6 +44,36 @@ export const createPublicChatMessage = async (req, res, next) => {
         severeDistress: chatOutput.severeDistress,
         provider: chatOutput.provider,
       },
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getChatHistory = async (req, res, next) => {
+  try {
+    const limit = Math.min(Number(req.query.limit) || 50, 100)
+    const chats = await ChatMessage.find({ user: req.user._id })
+      .sort({ createdAt: 1 })
+      .limit(limit)
+      .select('message aiResponse createdAt sentiment')
+
+    const messages = chats.flatMap((chat) => [
+      {
+        role: 'user',
+        text: chat.message,
+        timestamp: chat.createdAt.getTime(),
+      },
+      {
+        role: 'ai',
+        text: chat.aiResponse,
+        timestamp: chat.createdAt.getTime() + 1,
+      },
+    ])
+
+    res.status(200).json({
+      success: true,
+      data: { messages },
     })
   } catch (error) {
     next(error)

@@ -24,6 +24,11 @@ const moodEntrySchema = new mongoose.Schema(
       maxlength: 1000,
       default: '',
     },
+    sessionId: {
+      type: String,
+      trim: true,
+      default: '',
+    },
   },
   { timestamps: true },
 )

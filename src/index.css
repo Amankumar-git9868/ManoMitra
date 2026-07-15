@@ -1,12 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: #0f172a;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1e293b;
+}
+
+h1, h2, h3, h4, h5, h6, .font-outfit {
+  font-family: 'Outfit', system-ui, sans-serif;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(160deg, #eef2ff 0%, #f8fafc 35%, #f1f5f9 100%);
+  background-color: #F7F9F6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .animate-in {
+    animation: animate-in 0.3s ease-out both;
+  }
+  .fade-in {
+    animation-name: fade-in;
+  }
+  .slide-in-from-right-4 {
+    animation-name: slide-in-from-right;
+  }
+  .zoom-in-95 {
+    animation-name: zoom-in;
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-from-right {
+  from { transform: translateX(1rem); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes zoom-in {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
