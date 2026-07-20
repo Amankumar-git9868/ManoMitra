@@ -59,96 +59,96 @@ export default function AdminDashboard() {
   const { totals, moodDistribution, usageTrends } = stats
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-['Inter',sans-serif]">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+    <div className="min-h-screen bg-[#F5F7F5] p-4 md:p-6 font-sans">
+      <div className="max-w-7xl mx-auto space-y-5">
+        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-xl border border-[#E2E8E4] shadow-sm">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <Link to="/app" className="p-2 -ml-2 rounded-lg hover:bg-slate-100 text-slate-500">
-                <ArrowLeft size={20} />
+              <Link to="/app" className="p-2 -ml-2 rounded-lg hover:bg-slate-50 text-slate-500 transition-colors">
+                <ArrowLeft size={18} />
               </Link>
-              <h1 className="text-2xl font-bold text-slate-900">Admin Dashboard</h1>
+              <h1 className="font-display text-xl font-bold text-[#1C2B2A]">Admin Workspace</h1>
             </div>
-            <p className="text-sm text-slate-500 ml-11">Overview of platform health and usage.</p>
+            <p className="text-xs text-slate-500 ml-10">System telemetry and active statistics overview.</p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="hidden sm:inline text-sm font-medium text-slate-600 truncate max-w-[180px]">{user?.email}</span>
-            <button onClick={logout} className="px-4 py-2 text-sm font-medium text-rose-600 bg-rose-50 rounded-xl hover:bg-rose-100 whitespace-nowrap">
+            <span className="hidden sm:inline text-xs font-semibold text-slate-500 bg-slate-50 border border-slate-100 px-3 py-1.5 rounded-lg truncate max-w-[180px]">{user?.email}</span>
+            <button onClick={logout} className="px-4 py-2 text-xs font-bold text-rose-600 bg-rose-50 border border-rose-100 rounded-lg hover:bg-rose-100 transition-colors">
               Logout
             </button>
           </div>
         </header>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <div className="flex items-center gap-2 text-slate-500 mb-2">
-              <Users size={16} />
-              <span className="text-sm font-medium">Users</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="bg-white p-4 rounded-xl border border-[#E2E8E4] shadow-sm">
+            <div className="flex items-center gap-2 text-slate-500 mb-1">
+              <Users size={14} className="text-[#5C8D72]" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Total Members</span>
             </div>
-            <p className="text-3xl font-bold text-slate-900">{totals.totalUsers}</p>
+            <p className="font-display text-2xl font-extrabold text-[#1C2B2A]">{totals.totalUsers}</p>
           </div>
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <div className="flex items-center gap-2 text-slate-500 mb-2">
-              <MessageCircle size={16} />
-              <span className="text-sm font-medium">Chats</span>
+          <div className="bg-white p-4 rounded-xl border border-[#E2E8E4] shadow-sm">
+            <div className="flex items-center gap-2 text-slate-500 mb-1">
+              <MessageCircle size={14} className="text-[#7C6FA0]" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">AI Messages</span>
             </div>
-            <p className="text-3xl font-bold text-slate-900">{totals.totalChats}</p>
+            <p className="font-display text-2xl font-extrabold text-[#1C2B2A]">{totals.totalChats}</p>
           </div>
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <div className="flex items-center gap-2 text-slate-500 mb-2">
-              <Smile size={16} />
-              <span className="text-sm font-medium">Moods</span>
+          <div className="bg-white p-4 rounded-xl border border-[#E2E8E4] shadow-sm">
+            <div className="flex items-center gap-2 text-slate-500 mb-1">
+              <Smile size={14} className="text-teal-600" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Mood Logs</span>
             </div>
-            <p className="text-3xl font-bold text-slate-900">{totals.totalMoodEntries}</p>
+            <p className="font-display text-2xl font-extrabold text-[#1C2B2A]">{totals.totalMoodEntries}</p>
           </div>
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <div className="flex items-center gap-2 text-rose-500 mb-2">
-              <Activity size={16} />
-              <span className="text-sm font-medium">Negative Msg</span>
+          <div className="bg-white p-4 rounded-xl border border-[#E2E8E4] shadow-sm bg-rose-50/20">
+            <div className="flex items-center gap-2 text-rose-600 mb-1">
+              <Activity size={14} />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Negative Sentiment</span>
             </div>
-            <p className="text-3xl font-bold text-rose-600">{totals.negativeSentimentMessages}</p>
+            <p className="font-display text-2xl font-extrabold text-rose-600">{totals.negativeSentimentMessages}</p>
           </div>
-          <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <div className="flex items-center gap-2 text-rose-500 mb-2">
-              <AlertTriangle size={16} />
-              <span className="text-sm font-medium">Severe Distress</span>
+          <div className="bg-white p-4 rounded-xl border border-[#E2E8E4] shadow-sm bg-rose-50/30">
+            <div className="flex items-center gap-2 text-rose-600 mb-1">
+              <AlertTriangle size={14} />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Distress Triggers</span>
             </div>
-            <p className="text-3xl font-bold text-rose-600">{totals.severeDistressEvents}</p>
+            <p className="font-display text-2xl font-extrabold text-rose-600">{totals.severeDistressEvents}</p>
           </div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <h3 className="text-lg font-bold text-slate-900 mb-6">7-Day Usage Trends</h3>
+          <div className="bg-white p-5 rounded-xl border border-[#E2E8E4] shadow-sm">
+            <h3 className="font-display text-sm font-bold text-[#1C2B2A] mb-6 uppercase tracking-wider">7-Day Usage Trends</h3>
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={usageTrends}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                  <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dy={10} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8E4" />
+                  <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 11 }} dy={10} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 11 }} dx={-10} />
                   <Tooltip
-                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 10px 0 rgb(0 0 0/0.05)' }}
                   />
-                  <Line type="monotone" dataKey="chats" stroke="#4f46e5" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} name="Chats" />
-                  <Line type="monotone" dataKey="moods" stroke="#10b981" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} name="Moods" />
+                  <Line type="monotone" dataKey="chats" stroke="#7C6FA0" strokeWidth={2.5} dot={{ r: 3 }} activeDot={{ r: 5 }} name="Chats" />
+                  <Line type="monotone" dataKey="moods" stroke="#5C8D72" strokeWidth={2.5} dot={{ r: 3 }} activeDot={{ r: 5 }} name="Moods" />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <h3 className="text-lg font-bold text-slate-900 mb-6">Mood Distribution</h3>
+          <div className="bg-white p-5 rounded-xl border border-[#E2E8E4] shadow-sm">
+            <h3 className="font-display text-sm font-bold text-[#1C2B2A] mb-6 uppercase tracking-wider">Mood Distribution</h3>
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={moodDistribution} layout="vertical" margin={{ top: 0, right: 30, left: 20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E2E8F0" />
-                  <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} />
-                  <YAxis type="category" dataKey="moodType" axisLine={false} tickLine={false} tick={{ fill: '#334155', textTransform: 'capitalize' }} />
+                <BarChart data={moodDistribution} layout="vertical" margin={{ top: 0, right: 30, left: 10, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E2E8E4" />
+                  <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 11 }} />
+                  <YAxis type="category" dataKey="moodType" axisLine={false} tickLine={false} tick={{ fill: '#334155', fontSize: 11, textTransform: 'capitalize' }} />
                   <Tooltip
-                    cursor={{ fill: '#f8fafc' }}
-                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                    cursor={{ fill: '#EDF4F0' }}
+                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 10px 0 rgb(0 0 0/0.05)' }}
                   />
-                  <Bar dataKey="count" fill="#8b5cf6" radius={[0, 4, 4, 0]} barSize={32} />
+                  <Bar dataKey="count" fill="#2E7D87" radius={[0, 4, 4, 0]} barSize={24} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

@@ -8,9 +8,9 @@ const resourceHubContent = {
     categories: [
       {
         title: 'Stress Management',
-        accent: 'from-rose-100 to-orange-50',
-        border: 'border-rose-200',
-        tab: 'bg-rose-100 text-rose-800',
+        accent: 'from-emerald-50/50 to-[#EDF4F0]/40',
+        border: 'border-[#B5D4C3]/60',
+        tab: 'bg-[#EDF4F0] text-[#3f6b53]',
         videos: [
           { title: 'Box Breathing for Stress Relief', embedUrl: 'https://www.youtube.com/embed/tEmt1Znux58' },
           { title: '2-Minute Guided Reset', embedUrl: 'https://www.youtube.com/embed/SEfs5TJZ6Nk' },
@@ -23,9 +23,9 @@ const resourceHubContent = {
       },
       {
         title: 'Sleep Improvement',
-        accent: 'from-indigo-100 to-sky-50',
-        border: 'border-indigo-200',
-        tab: 'bg-indigo-100 text-indigo-800',
+        accent: 'from-purple-50/40 to-[#F0EDF8]/40',
+        border: 'border-[#C4BCDE]/60',
+        tab: 'bg-[#F0EDF8] text-[#7C6FA0]',
         videos: [
           { title: 'Wind Down Before Bed', embedUrl: 'https://www.youtube.com/embed/aEqlQvczMJQ' },
           { title: 'Relaxing Breathing for Sleep', embedUrl: 'https://www.youtube.com/embed/1vx8iUvfyCY' },
@@ -38,9 +38,9 @@ const resourceHubContent = {
       },
       {
         title: 'Anxiety Help',
-        accent: 'from-emerald-100 to-teal-50',
-        border: 'border-emerald-200',
-        tab: 'bg-emerald-100 text-emerald-800',
+        accent: 'from-teal-50/30 to-[#E6F3F5]/40',
+        border: 'border-teal-200/60',
+        tab: 'bg-[#E6F3F5] text-[#2E7D87]',
         videos: [
           { title: 'Grounding Exercise for Anxiety', embedUrl: 'https://www.youtube.com/embed/30VMIEmA114' },
           { title: 'Gentle Support for Overthinking', embedUrl: 'https://www.youtube.com/embed/O-6f5wQXSu8' },
@@ -59,9 +59,9 @@ const resourceHubContent = {
     categories: [
       {
         title: 'तनाव प्रबंधन',
-        accent: 'from-rose-100 to-orange-50',
-        border: 'border-rose-200',
-        tab: 'bg-rose-100 text-rose-800',
+        accent: 'from-emerald-50/50 to-[#EDF4F0]/40',
+        border: 'border-[#B5D4C3]/60',
+        tab: 'bg-[#EDF4F0] text-[#3f6b53]',
         videos: [
           { title: 'तनाव कम करने के लिए बॉक्स ब्रीदिंग', embedUrl: 'https://www.youtube.com/embed/tEmt1Znux58' },
           { title: '2 मिनट का गाइडेड रीसेट', embedUrl: 'https://www.youtube.com/embed/SEfs5TJZ6Nk' },
@@ -74,9 +74,9 @@ const resourceHubContent = {
       },
       {
         title: 'बेहतर नींद',
-        accent: 'from-indigo-100 to-sky-50',
-        border: 'border-indigo-200',
-        tab: 'bg-indigo-100 text-indigo-800',
+        accent: 'from-purple-50/40 to-[#F0EDF8]/40',
+        border: 'border-[#C4BCDE]/60',
+        tab: 'bg-[#F0EDF8] text-[#7C6FA0]',
         videos: [
           { title: 'सोने से पहले मन शांत करना', embedUrl: 'https://www.youtube.com/embed/aEqlQvczMJQ' },
           { title: 'नींद के लिए रिलैक्सिंग ब्रीदिंग', embedUrl: 'https://www.youtube.com/embed/1vx8iUvfyCY' },
@@ -89,9 +89,9 @@ const resourceHubContent = {
       },
       {
         title: 'एंग्जायटी सहायता',
-        accent: 'from-emerald-100 to-teal-50',
-        border: 'border-emerald-200',
-        tab: 'bg-emerald-100 text-emerald-800',
+        accent: 'from-teal-50/30 to-[#E6F3F5]/40',
+        border: 'border-teal-200/60',
+        tab: 'bg-[#E6F3F5] text-[#2E7D87]',
         videos: [
           { title: 'एंग्जायटी के लिए ग्राउंडिंग एक्सरसाइज़', embedUrl: 'https://www.youtube.com/embed/30VMIEmA114' },
           { title: 'ओवरथिंकिंग के लिए सौम्य सहारा', embedUrl: 'https://www.youtube.com/embed/O-6f5wQXSu8' },
@@ -135,14 +135,14 @@ export default function ResourceGrid({ searchQuery }) {
   const activeCategory = filteredResourceCategories[safeTab]
 
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+    <article className="card overflow-hidden">
       {/* Header */}
-      <div className="p-5 border-b border-slate-100 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="p-5 border-b border-[#E2E8E4]/60 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h3 className="text-xl font-bold text-slate-900">{resourceView.title}</h3>
-          <p className="mt-0.5 text-sm text-slate-500">{resourceView.subtitle}</p>
+          <h3 className="font-display text-xl font-extrabold text-[#1C2B2A]">{resourceView.title}</h3>
+          <p className="mt-0.5 text-xs text-slate-500">{resourceView.subtitle}</p>
         </div>
-        <div className="inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1 shrink-0">
+        <div className="inline-flex rounded-xl border border-slate-200 bg-[#F5F7F5] p-1 shrink-0">
           {[
             { key: 'en', label: 'English' },
             { key: 'hi', label: 'हिन्दी' },
@@ -151,9 +151,9 @@ export default function ResourceGrid({ searchQuery }) {
               key={language.key}
               type="button"
               onClick={() => { setResourceLanguage(language.key); setActiveTab(0) }}
-              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
                 resourceLanguage === language.key
-                  ? 'bg-white text-emerald-700 shadow-sm'
+                  ? 'bg-white text-[#5C8D72] shadow-sm'
                   : 'text-slate-600 hover:bg-slate-100'
               }`}
             >
@@ -197,7 +197,7 @@ export default function ResourceGrid({ searchQuery }) {
                 {activeCategory.videos.map((video) => (
                   <div
                     key={video.title}
-                    className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md"
+                    className="overflow-hidden card hover:shadow-md transition-all duration-200"
                   >
                     <div className="aspect-video">
                       <iframe
@@ -209,12 +209,12 @@ export default function ResourceGrid({ searchQuery }) {
                       />
                     </div>
                     <div className="p-3 border-t border-slate-100">
-                      <p className="text-sm font-semibold text-slate-800 line-clamp-1">{video.title}</p>
+                      <p className="text-xs font-bold text-[#1C2B2A] line-clamp-1">{video.title}</p>
                       <a
                         href={video.embedUrl.replace('/embed/', '/watch?v=')}
                         target="_blank"
                         rel="noreferrer"
-                        className="mt-1 inline-block text-xs font-medium text-emerald-600 hover:underline"
+                        className="mt-1 inline-block text-[10px] font-bold text-[#5C8D72] hover:underline uppercase tracking-wide"
                       >
                         Open on YouTube ↗
                       </a>
@@ -224,10 +224,10 @@ export default function ResourceGrid({ searchQuery }) {
               </div>
 
               {/* Quick Tips */}
-              <div className="mt-4 rounded-2xl bg-white/90 p-4 shadow-sm">
+              <div className="mt-4 rounded-2xl bg-white/90 p-4 shadow-sm border border-slate-100/60">
                 <div className="mb-3 flex items-center gap-2">
-                  <BookOpenText size={16} className="text-emerald-700" />
-                  <p className="text-sm font-bold text-slate-900">
+                  <BookOpenText size={16} className="text-[#5C8D72]" />
+                  <p className="text-xs font-bold text-slate-900 uppercase tracking-wider">
                     {resourceLanguage === 'en' ? 'Quick Tips' : 'त्वरित सुझाव'}
                   </p>
                 </div>

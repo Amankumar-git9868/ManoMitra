@@ -129,16 +129,16 @@ export default function PeerSupport({ searchQuery }) {
 
   if (activeGroup) {
     return (
-      <article className="flex flex-col h-[600px] rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+      <article className="flex flex-col h-[calc(100svh-200px)] max-h-[600px] min-h-[400px] card overflow-hidden">
         <div className="flex items-center gap-3 border-b border-slate-100 bg-white p-4">
-          <button onClick={closeGroup} className="p-2 -ml-2 rounded-lg hover:bg-slate-100 text-slate-500">
+          <button type="button" onClick={closeGroup} className="p-2 -ml-2 rounded-lg hover:bg-slate-100 text-slate-500">
             <ChevronLeft size={20} />
           </button>
-          <div className="rounded-xl bg-indigo-100 p-2 text-indigo-600">
+          <div className="rounded-xl bg-[#F0EDF8] p-2 text-[#7C6FA0] border border-[#C4BCDE]/30 shadow-sm">
             <UsersRound size={20} />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-slate-900">{activeGroup.name}</h3>
+            <h3 className="font-display text-base font-bold text-slate-900">{activeGroup.name}</h3>
             <p className="text-xs text-slate-500">{activeGroup.description}</p>
           </div>
         </div>
@@ -158,15 +158,15 @@ export default function PeerSupport({ searchQuery }) {
               const isMine = msg.user?._id === user?.id
               return (
                 <div key={msg._id} className={`flex ${isMine ? 'justify-end' : 'justify-start'} mb-4`}>
-                  <div className={`max-w-[75%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
-                    isMine ? 'bg-indigo-600 text-white rounded-br-sm' : 'bg-white border border-slate-100 text-slate-800 rounded-bl-sm'
+                  <div className={`max-w-[90%] sm:max-w-[75%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
+                    isMine ? 'bg-[#7C6FA0] text-white rounded-br-sm' : 'bg-white border border-slate-100 text-slate-800 rounded-bl-sm'
                   }`}>
                     {!isMine && (
-                      <p className="text-xs font-bold text-indigo-700 mb-1">{msg.user?.name || 'Unknown'}</p>
+                      <p className="text-xs font-bold text-[#7C6FA0] mb-1">{msg.user?.name || 'Unknown'}</p>
                     )}
                     <p className="whitespace-pre-wrap">{msg.text}</p>
                     <div className="flex justify-between items-center mt-2 gap-4">
-                      <p className={`text-[10px] uppercase font-medium tracking-wider ${isMine ? 'text-indigo-200' : 'text-slate-400'}`}>
+                      <p className={`text-[10px] uppercase font-medium tracking-wider ${isMine ? 'text-[#C4BCDE]' : 'text-slate-400'}`}>
                         {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </p>
                       {msg.distressFlagged && user?.role === 'admin' && (
@@ -188,12 +188,12 @@ export default function PeerSupport({ searchQuery }) {
               value={messageInput}
               onChange={(e) => setMessageInput(e.target.value)}
               placeholder="Share something with the group..."
-              className="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition-colors focus:border-indigo-500 focus:bg-white focus:ring-1 focus:ring-indigo-500"
+              className="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition-colors focus:border-[#7C6FA0] focus:bg-white focus:ring-1 focus:ring-[#7C6FA0]"
             />
             <button
               type="submit"
               disabled={sending || !messageInput.trim()}
-              className="flex h-[46px] w-[46px] items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm transition hover:bg-indigo-700 disabled:opacity-50"
+              className="flex h-[46px] w-[46px] items-center justify-center rounded-xl bg-[#7C6FA0] text-white shadow-sm transition hover:bg-[#685A8D] disabled:opacity-50"
             >
               {sending ? <Loader2 className="animate-spin" size={18} /> : <Send size={18} />}
             </button>
@@ -204,14 +204,14 @@ export default function PeerSupport({ searchQuery }) {
   }
 
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <article className="card p-6 shadow-sm">
       <div className="mb-6 flex items-center gap-3">
-        <div className="rounded-xl bg-indigo-100 p-2 text-indigo-600">
+        <div className="rounded-xl bg-[#F0EDF8] p-2.5 text-[#7C6FA0] border border-[#C4BCDE]/30 shadow-sm">
           <UsersRound size={20} />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-slate-900">Peer Support Circle</h3>
-          <p className="text-sm text-slate-500">Connect with others in a safe space</p>
+          <h3 className="font-display text-lg font-bold text-slate-900">Peer Support Circle</h3>
+          <p className="text-xs text-slate-500">Connect with others in a safe space</p>
         </div>
       </div>
 
@@ -230,35 +230,36 @@ export default function PeerSupport({ searchQuery }) {
               key={group._id} 
               className={`p-5 rounded-2xl border transition-all ${
                 group.joined 
-                  ? 'border-indigo-200 bg-indigo-50/30 cursor-pointer hover:border-indigo-300' 
+                  ? 'border-[#C4BCDE] bg-[#F0EDF8]/20 cursor-pointer hover:border-[#7C6FA0] shadow-sm' 
                   : 'border-slate-200 bg-white'
               }`}
               onClick={() => openGroup(group)}
             >
               <div className="flex justify-between items-start mb-2">
-                <h4 className="font-bold text-slate-900 line-clamp-1">{group.name}</h4>
+                <h4 className="font-display font-bold text-[#1C2B2A] text-sm line-clamp-1">{group.name}</h4>
                 {group.category && (
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-slate-100 text-slate-600 rounded-lg">
+                  <span className="badge badge-lavender">
                     {group.category}
                   </span>
                 )}
               </div>
-              <p className="text-sm text-slate-500 mb-4 line-clamp-2 min-h-[40px]">
+              <p className="text-xs text-slate-500 mb-4 line-clamp-2 min-h-[32px]">
                 {group.description || 'No description provided.'}
               </p>
               
               <div className="flex items-center justify-between">
                 <div className="flex -space-x-2">
-                  <div className="w-6 h-6 rounded-full bg-indigo-100 border-2 border-white flex items-center justify-center text-[10px] font-bold text-indigo-700">
+                  <div className="w-6 h-6 rounded-full bg-[#F0EDF8] border-2 border-white flex items-center justify-center text-[10px] font-bold text-[#7C6FA0]">
                     {group.members?.length || 0}
                   </div>
                 </div>
                 <button
+                  type="button"
                   onClick={(e) => toggleJoin(group._id, e)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                     group.joined 
-                      ? 'bg-white border border-indigo-200 text-indigo-600 hover:bg-indigo-50' 
-                      : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                      ? 'bg-white border border-[#C4BCDE] text-[#7C6FA0] hover:bg-[#F0EDF8]' 
+                      : 'bg-[#7C6FA0] text-white hover:bg-[#685A8D]'
                   }`}
                 >
                   {group.joined ? 'Leave Group' : 'Join Group'}

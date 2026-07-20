@@ -166,29 +166,29 @@ export default function ChatAssistant() {
   }
 
   return (
-    <article className="flex flex-col h-[600px] rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+    <article className="flex flex-col h-[calc(100svh-200px)] max-h-[600px] min-h-[400px] rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
       <div className="flex items-center justify-between border-b border-slate-100 bg-white p-5">
         <div className="flex items-center gap-3">
-          <div className="rounded-xl bg-emerald-100 p-2 text-emerald-600">
+          <div className="rounded-xl bg-[#EDF4F0] p-2 text-[#5C8D72] border border-[#B5D4C3]/40">
             <MessageCircleHeart size={20} />
           </div>
-          <h3 className="text-lg font-bold text-slate-900">AI Chat Support</h3>
+          <h3 className="font-display text-lg font-bold text-[#1C2B2A]">AI Chat Support</h3>
         </div>
-        <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold tracking-wide text-emerald-700">Always available</span>
+        <span className="rounded-full bg-[#EDF4F0] px-3 py-1 text-xs font-bold tracking-wide text-[#3f6b53]">Always available</span>
       </div>
       
       <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-50/50">
         {chatMessages.map((message) => (
           <div key={message.timestamp} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div
-              className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
+              className={`max-w-[90%] sm:max-w-[80%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
                 message.role === 'user'
-                  ? 'bg-emerald-600 text-white rounded-tr-sm'
+                  ? 'bg-[#5C8D72] text-white rounded-tr-sm'
                   : 'bg-white border border-slate-100 text-slate-700 rounded-tl-sm'
               }`}
             >
               <p className="whitespace-pre-wrap leading-relaxed">{message.text}</p>
-              <p className={`mt-2 text-[10px] uppercase font-medium tracking-wider ${message.role === 'user' ? 'text-emerald-200' : 'text-slate-400'}`}>
+              <p className={`mt-2 text-[10px] uppercase font-medium tracking-wider ${message.role === 'user' ? 'text-[#B5D4C3]' : 'text-slate-400'}`}>
                 {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </p>
             </div>
@@ -219,13 +219,13 @@ export default function ChatAssistant() {
                 sendChatMessage(e)
               }
             }}
-            className="flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition-colors focus:border-emerald-500 focus:bg-white focus:ring-1 focus:ring-emerald-500"
+            className="flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition-colors focus:border-[#5C8D72] focus:bg-white focus:ring-1 focus:ring-[#5C8D72]"
           />
           <div className="flex flex-col gap-2">
             <button
               type="submit"
               disabled={chatLoading}
-              className="flex h-11 items-center justify-center rounded-xl bg-emerald-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 disabled:opacity-50"
+              className="flex h-11 items-center justify-center rounded-xl bg-[#5C8D72] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3f6b53] disabled:opacity-50"
             >
               Send
             </button>

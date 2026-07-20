@@ -130,45 +130,50 @@ export default function MoodTracker() {
   const hasMoodData = moodChartData.some((point) => point.moodScore > 0)
 
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-6 flex items-center gap-3">
-        <div className="rounded-xl bg-teal-100 p-2 text-teal-600">
-          <Smile size={20} />
-        </div>
-        <div>
-          <h3 className="text-lg font-bold text-slate-900">Mood Tracker</h3>
-          <p className="text-sm text-slate-500">How are you feeling today?</p>
+    <article className="card p-6 shadow-sm">
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="rounded-xl bg-teal-50 p-2.5 text-teal-600 border border-teal-200/50">
+            <Smile size={20} />
+          </div>
+          <div>
+            <h3 className="font-display text-lg font-bold text-[#1C2B2A]">Mood Tracker</h3>
+            <p className="text-xs text-slate-500">How are you feeling today?</p>
+          </div>
         </div>
       </div>
 
-      <div className="mb-6 flex gap-3 flex-wrap">
-        {moodOptions.map((mood) => (
-          <button
-            key={mood.key}
-            type="button"
-            onClick={() => setSelectedMood(mood.key)}
-            className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-all ${
-              selectedMood === mood.key
-                ? 'border-teal-500 bg-teal-50 text-teal-800 ring-1 ring-teal-500'
-                : 'border-slate-200 text-slate-600 hover:border-teal-300'
-            }`}
-          >
-            <span className="text-lg">{mood.emoji}</span>
-            {mood.label}
-          </button>
-        ))}
+      <div className="mb-6 grid grid-cols-3 gap-3">
+        {moodOptions.map((mood) => {
+          const isSelected = selectedMood === mood.key
+          return (
+            <button
+              key={mood.key}
+              type="button"
+              onClick={() => setSelectedMood(mood.key)}
+              className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-200 ${
+                isSelected
+                  ? 'border-[#5C8D72] bg-[#EDF4F0] text-[#3f6b53] ring-1 ring-[#5C8D72]'
+                  : 'border-slate-200 bg-white text-slate-600 hover:border-[#5C8D72]/50 hover:bg-[#F5F7F5]/50'
+              }`}
+            >
+              <span className="text-3xl mb-1.5">{mood.emoji}</span>
+              <span className="text-xs font-bold uppercase tracking-wider">{mood.label}</span>
+            </button>
+          )
+        })}
       </div>
       
       <button
         type="button"
         onClick={submitMood}
         disabled={moodSubmitting}
-        className="w-full md:w-auto rounded-xl bg-slate-900 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:opacity-50"
+        className="btn-primary w-full md:w-auto"
       >
-        {moodSubmitting ? 'Saving...' : 'Save Today\'s Mood'}
+        {moodSubmitting ? 'Saving...' : "Save Today's Mood"}
       </button>
       
-      {moodError && <p className="mt-3 rounded-lg bg-rose-50 p-2 text-sm text-rose-600">{moodError}</p>}
+      {moodError && <p className="mt-3 rounded-lg bg-rose-50 border border-rose-100 p-2 text-sm text-rose-600">{moodError}</p>}
       
       <div className="mt-8">
         <h4 className="text-sm font-semibold text-slate-800 mb-4">Your 7-Day Trend</h4>
@@ -202,12 +207,12 @@ export default function MoodTracker() {
       </div>
       
       <p
-        className={`mt-4 rounded-xl px-4 py-3 text-sm font-medium ${
+        className={`mt-4 rounded-xl px-4 py-3 text-xs font-semibold ${
           moodTrend === 'positive'
-            ? 'bg-emerald-50 text-emerald-700'
+            ? 'bg-[#EDF4F0] text-[#3f6b53] border border-[#B5D4C3]/50'
             : moodTrend === 'negative'
-              ? 'bg-amber-50 text-amber-700'
-              : 'bg-slate-50 text-slate-600'
+              ? 'bg-amber-50 text-amber-700 border border-amber-200/50'
+              : 'bg-slate-50 text-slate-600 border border-slate-200/50'
         }`}
       >
         {moodInsight}

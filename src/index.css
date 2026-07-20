@@ -1,48 +1,183 @@
 @import "tailwindcss";
 
+/* ─── Design Tokens ──────────────────────────────────────────── */
 :root {
-  font-family: 'Inter', system-ui, sans-serif;
-  color: #1e293b;
+  --sage:        #5C8D72;
+  --sage-dark:   #3f6b53;
+  --sage-light:  #EDF4F0;
+  --sage-mid:    #B5D4C3;
+  --lavender:    #7C6FA0;
+  --lavender-light: #F0EDF8;
+  --lavender-mid:   #C4BCDE;
+  --teal:        #2E7D87;
+  --teal-light:  #E6F3F5;
+  --amber:       #D97706;
+  --amber-light: #FEF3C7;
+  --rose:        #E11D48;
+  --rose-light:  #FFF1F2;
+  --surface:     #FFFFFF;
+  --bg:          #F5F7F5;
+  --border:      #E2E8E4;
+  --border-strong: #C8D5CC;
+  --text:        #1C2B2A;
+  --text-mid:    #334155;
+  --text-muted:  #64748B;
+  --text-faint:  #94A3B8;
+  --shadow-sm:   0 1px 3px 0 rgb(0 0 0/0.06), 0 1px 2px -1px rgb(0 0 0/0.04);
+  --shadow-md:   0 4px 12px 0 rgb(0 0 0/0.08), 0 2px 4px -2px rgb(0 0 0/0.05);
+  --shadow-lg:   0 10px 30px -5px rgb(0 0 0/0.10), 0 4px 10px -5px rgb(0 0 0/0.06);
 }
 
-h1, h2, h3, h4, h5, h6, .font-outfit {
-  font-family: 'Outfit', system-ui, sans-serif;
-}
+/* ─── Base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #F7F9F6;
+  background-color: var(--bg);
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text-mid);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
+  color: var(--text);
+}
+
+/* ─── Utilities ──────────────────────────────────────────────── */
 @layer utilities {
-  .animate-in {
-    animation: animate-in 0.3s ease-out both;
+
+  /* Scrollbar */
+  .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+
+  /* Card base */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
   }
-  .fade-in {
-    animation-name: fade-in;
+  .card-hover {
+    transition: box-shadow 0.2s, transform 0.2s;
   }
-  .slide-in-from-right-4 {
-    animation-name: slide-in-from-right;
+  .card-hover:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
   }
-  .zoom-in-95 {
-    animation-name: zoom-in;
+
+  /* Badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .badge-sage    { background: var(--sage-light);     color: var(--sage-dark); }
+  .badge-lavender{ background: var(--lavender-light);  color: var(--lavender); }
+  .badge-teal    { background: var(--teal-light);      color: var(--teal); }
+  .badge-amber   { background: var(--amber-light);     color: var(--amber); }
+
+  /* Section label pill */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.3rem 0.875rem;
+    background: var(--sage-light);
+    color: var(--sage-dark);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  /* Btn variants */
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: var(--sage); color: #fff;
+    padding: 0.75rem 1.75rem;
+    border-radius: 9999px;
+    font-size: 0.9375rem; font-weight: 600;
+    box-shadow: 0 4px 14px 0 rgb(92 141 114/0.35);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover {
+    background: var(--sage-dark);
+    box-shadow: 0 6px 20px 0 rgb(92 141 114/0.45);
+    transform: translateY(-1px);
+  }
+  .btn-outline {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: transparent; color: var(--sage);
+    padding: 0.75rem 1.75rem;
+    border-radius: 9999px;
+    border: 1.5px solid var(--sage);
+    font-size: 0.9375rem; font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+  }
+  .btn-outline:hover { background: var(--sage-light); }
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--sage) 0%, var(--teal) 50%, var(--lavender) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Animations */
+  .animate-in { animation: animateIn 0.35s ease-out both; }
+  .fade-in    { animation-name: fadeIn; }
+  .slide-in-from-right-4 { animation-name: slideInRight; }
+  .zoom-in-95 { animation-name: zoomIn; }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Float blob animation */
+  .blob-float {
+    animation: blobFloat 7s ease-in-out infinite;
+  }
+  .blob-float-reverse {
+    animation: blobFloat 9s ease-in-out infinite reverse;
   }
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* ─── Keyframes ──────────────────────────────────────────────── */
+@keyframes fadeIn    { from { opacity: 0; }                              to { opacity: 1; } }
+@keyframes slideInRight { from { transform: translateX(1rem); opacity:0; } to { transform:translateX(0); opacity:1; } }
+@keyframes zoomIn    { from { transform: scale(0.95); opacity: 0; }      to { transform: scale(1); opacity: 1; } }
+@keyframes animateIn { from { opacity: 0; }                              to { opacity: 1; } }
+
+@keyframes blobFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  33%       { transform: translateY(-18px) scale(1.04); }
+  66%       { transform: translateY(10px) scale(0.97); }
 }
 
-@keyframes slide-in-from-right {
-  from { transform: translateX(1rem); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes zoom-in {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
