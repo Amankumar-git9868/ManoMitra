@@ -60,7 +60,7 @@ app.use('/', groupRoutes)
 if (isProduction) {
   const distPath = path.join(__dirname, 'dist')
   app.use(express.static(distPath))
-  app.get('*', (req, res, next) => {
+  app.get('/*splat', (req, res, next) => {
     if (req.path.startsWith('/auth') || req.path.startsWith('/chat') || req.path.startsWith('/mood') || req.path.startsWith('/admin') || req.path.startsWith('/appointments') || req.path.startsWith('/groups') || req.path === '/health') {
       return next()
     }
