@@ -37,6 +37,7 @@ export const connectDB = async () => {
     if (!mongoUri || isProduction) throw error
 
     console.warn('⚠ Primary MongoDB unreachable. Falling back to in-memory dev database.')
+    console.error('Actual error:', error.message)
     memoryServer = await MongoMemoryServer.create()
     const uri = memoryServer.getUri()
     await mongoose.connect(uri)
